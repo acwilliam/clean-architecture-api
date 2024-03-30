@@ -7,6 +7,9 @@ import com.acttecnology.architectureapi.infrastructure.persistence.PessoaReposit
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Component
 public class PessoaRepositoryGateway implements PessoaGateway {
@@ -19,4 +22,14 @@ public class PessoaRepositoryGateway implements PessoaGateway {
         var pessoaEntity = pessoaEntityMapper.toEntity(pessoa);
         return pessoaEntityMapper.toPessoa(pessoaRepository.save(pessoaEntity));
     }
+
+    @Override
+    public List<Pessoa> obterPessoas() {
+       return pessoaRepository
+               .findAll()
+               .stream()
+               .map(pessoaEntityMapper::toPessoa)
+               .collect(Collectors.toList());
+    }
+
 }

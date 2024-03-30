@@ -17,6 +17,7 @@ public class PessoaEntity {
     private Long id;
     private String nome;
     private String email;
+    @Column(unique = true)
     private String cpfCnpj;
     @Enumerated(EnumType.STRING)
     private EnumTipoPessoal tipo;
